@@ -580,6 +580,7 @@ func (g *generator) rpVMSS() *arm.Resource {
 							ManagedDisk: &mgmtcompute.VirtualMachineScaleSetManagedDiskParameters{
 								StorageAccountType: mgmtcompute.StorageAccountTypesPremiumLRS,
 							},
+							DiskSizeGB: to.Int32Ptr(256),
 						},
 					},
 					NetworkProfile: &mgmtcompute.VirtualMachineScaleSetNetworkProfile{
@@ -1336,7 +1337,7 @@ func (g *generator) rpCosmosDBAlert(throttledRequestThreshold float64, ruConsump
 		Name:            to.StringPtr("RUConsumptionCheck"),
 		Operator:        mgmtinsights.OperatorGreaterThan,
 		Threshold:       to.Float64Ptr(ruConsumptionThreshold),
-		TimeAggregation: mgmtinsights.Maximum,
+		TimeAggregation: mgmtinsights.Average,
 	}
 
 	return &arm.Resource{
